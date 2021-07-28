@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:projeto_web/models/relatorio.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -68,13 +67,16 @@ class _ReportsPageState extends State<ReportsPage> {
                       itemCount: item.length,
                       itemBuilder: (context, index){
                         return ListTile(
-                          title: Text(item[index].id,
-                            style: TextStyle(fontSize: 22)),
+                          title: Text(item[index].visita,
+                            style: TextStyle(fontSize: 20)),
                           subtitle: Text(item[index].veiculo,
-                          style: TextStyle(fontSize: 22)),
+                          style: TextStyle(fontSize: 16)),
                           leading: Column(
                             children: <Widget>[
-                              IconButton(icon: const Icon(Icons.delete_forever),
+                              IconButton(
+                                  icon: const Icon(Icons.delete_forever,),
+                                  hoverColor: Colors.white10,
+                                  tooltip: "Excluir",
                                   onPressed: (){
                                   _deletarRelatorio(
                                       context, documentos[index], index);
