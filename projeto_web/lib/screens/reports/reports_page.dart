@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:projeto_web/models/relatorio.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:projeto_web/screens/reports/exibir_relatorio.dart';
 
 class ReportsPage extends StatefulWidget {
   @override
@@ -83,7 +84,8 @@ class _ReportsPageState extends State<ReportsPage> {
                                   }
                               )
                             ],
-                          )
+                          ),
+                            onTap: ()=> _navegarParaRelatorio(context, item[index]),
                         );
                       },
                     );
@@ -107,4 +109,11 @@ class _ReportsPageState extends State<ReportsPage> {
       item.removeAt(position);
     });
   }
+
+  void _navegarParaRelatorio(BuildContext context, Relatorio relatorio) async{
+    await Navigator.push(context,
+      MaterialPageRoute(builder: (context) => ExibirRelatorio(relatorio)),
+    );
+  }
+
 }
