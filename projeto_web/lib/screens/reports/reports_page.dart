@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:projeto_web/models/relatorio.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:projeto_web/screens/reports/exibir_relatorio.dart';
+import 'package:projeto_web/shared/loading.dart';
 
 class ReportsPage extends StatefulWidget {
   @override
@@ -46,9 +47,7 @@ class _ReportsPageState extends State<ReportsPage> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      appBar: new AppBar(
-        title: new Text("Lista de Relatórios"),
-      ),
+      backgroundColor: Colors.grey[900],
       body: Column(
         children: <Widget>[
           Expanded(
@@ -59,7 +58,7 @@ class _ReportsPageState extends State<ReportsPage> {
                   case ConnectionState.none:
                   case ConnectionState.waiting:
                     return Center(
-                      child: CircularProgressIndicator(),
+                      child: Loading(),
                     );
                   default:
                     List<DocumentSnapshot> documentos =
@@ -69,14 +68,22 @@ class _ReportsPageState extends State<ReportsPage> {
                       itemBuilder: (context, index){
                         return ListTile(
                           title: Text(item[index].visita,
-                            style: TextStyle(fontSize: 20)),
+                            style: TextStyle(
+                                fontSize: 20,
+                              color: Colors.white,
+                            )),
                           subtitle: Text(item[index].veiculo,
-                          style: TextStyle(fontSize: 16)),
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: Colors.white30,
+                              )),
                           leading: Column(
                             children: <Widget>[
                               IconButton(
                                   icon: const Icon(Icons.delete_forever,),
+                                  color: Colors.red[900],
                                   hoverColor: Colors.white10,
+                                  splashRadius: 25,
                                   tooltip: "Excluir",
                                   onPressed: (){
                                   _deletarRelatorio(
