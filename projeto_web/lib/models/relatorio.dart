@@ -7,9 +7,11 @@ class Relatorio{
   num _valor;
   String _visita;
   String _obs;
+  String _data;
+  String _nome;
 
   Relatorio(this._id, this._veiculo, this._km, this._abastecimento, this._litros,
-      this._valor, this._visita, this._obs);
+      this._valor, this._visita, this._obs, this._data, this._nome);
 
   Relatorio.map(dynamic obj){
     this._id = obj['id'];
@@ -20,6 +22,8 @@ class Relatorio{
     this._valor = obj['valor'];
     this._visita = obj['visita'];
     this._obs = obj['obs'];
+    this._data =  obj['data'];
+    this._nome = obj['nome'];
   }
 
   String get id => _id;
@@ -30,6 +34,8 @@ class Relatorio{
   num get valor => _valor;
   String get visita => _visita;
   String get obs => _obs;
+  String get data => _data;
+  String get nome => _nome;
 
   Map<String, dynamic> toMap(){
     var map = new Map<String, dynamic>();
@@ -43,6 +49,8 @@ class Relatorio{
     map['valor'] = _valor;
     map['visita'] = _visita;
     map['obs'] = _obs;
+    map['data'] = _data;
+    map['nome'] = _nome;
 
     return map;
   }
@@ -56,5 +64,7 @@ class Relatorio{
     this._valor = map['valor'];
     this._visita = map['visita'];
     this._obs = map['obs'];
+    this._data = map['data'];
+    this._nome = map['nome'];
   }
 }

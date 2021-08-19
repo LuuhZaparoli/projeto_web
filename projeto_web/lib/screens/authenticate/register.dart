@@ -14,6 +14,7 @@ class _RegisterState extends State<Register> {
   final _formKey = GlobalKey<FormState>();
   bool loading = false;
 
+  String name = '';
   String email = '';
   String password = '';
   String error = '';
@@ -35,8 +36,16 @@ class _RegisterState extends State<Register> {
                   children: <Widget>[
                     SizedBox(height: 20.0),
                     TextFormField(
+                        decoration: textInputDecoration.copyWith(hintText: 'Nome'),
+                        validator: (val) => val.isEmpty ? 'Digite seu nome' : null,
+                        onChanged: (val){
+                          setState(() => name = val);
+
+                        }
+                    ),
+                    TextFormField(
                       decoration: textInputDecoration.copyWith(hintText: 'E-mail'),
-                      validator: (val) => val.isEmpty ? 'Enter an e-mail' : null,
+                      validator: (val) => val.isEmpty ? 'Digite seu e-mail' : null,
                         onChanged: (val){
                           setState(() => email = val);
 
@@ -62,7 +71,7 @@ class _RegisterState extends State<Register> {
                         onPressed: () async{
                           if(_formKey.currentState.validate()){
                             setState(() => loading = true);
-                            dynamic result = await _auth.registerWithEmailAndPassword(email, password);
+                            dynamic result = await _auth.registerWithEmailAndPassword(name, email, password);
                             if(result == null){
                               setState(() =>
                               error = 'please supply a valid e-mail');

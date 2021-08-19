@@ -17,7 +17,7 @@ class AuthService {
 
   }
 
-  //Sign in anon
+  //Login anonimo
   Future signInAnon() async{
   try{
     //AuthResult virou UserCredential
@@ -30,6 +30,7 @@ class AuthService {
     return null;
   }
   }
+
   //Login e-mail e senha
   Future signInWithEmailAndPassword(String email, String password) async{
     try{
@@ -43,10 +44,11 @@ class AuthService {
   }
 
   //Cadastro e-mail e senha
-  Future registerWithEmailAndPassword(String email, String password) async{
+  Future registerWithEmailAndPassword(String name, String email, String password) async{
     try{
       UserCredential result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
       User user = result.user;
+      user.updateProfile(displayName: name);
       return _userFromFirebaseUser(user);
     }catch(e){
       print(e.toString());

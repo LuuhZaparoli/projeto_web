@@ -6,6 +6,6 @@ const textTitle = TextStyle(
 );
 
 const textContent = TextStyle(
-  color: Colors.white38,
-  fontSize: 14.0,
+  color: Colors.white70,
+  fontSize: 16.0,
 );
