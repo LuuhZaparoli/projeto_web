@@ -3,12 +3,16 @@ import 'package:projeto_web/service/auth.dart';
 import 'package:projeto_web/shared/constants.dart';
 import 'package:projeto_web/shared/loading.dart';
 
-class Register extends StatefulWidget {
+class RegisterPage extends StatefulWidget {
+
+  final Function toggleView;
+  RegisterPage({this.toggleView});
+
   @override
-  _RegisterState createState() => _RegisterState();
+  _RegisterPageState createState() => _RegisterPageState();
 }
 
-class _RegisterState extends State<Register> {
+class _RegisterPageState extends State<RegisterPage> {
 
   final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>();
@@ -22,11 +26,27 @@ class _RegisterState extends State<Register> {
   @override
   Widget build(BuildContext context) {
     return loading ? Loading() : Scaffold(
-        backgroundColor: Colors.brown[100],
+        backgroundColor: Colors.grey[900],
         appBar: AppBar(
-          backgroundColor: Colors.brown[400],
+          backgroundColor: Colors.blueGrey,
           elevation: 0.0,
-          title: Text('Sing up in to Brew Crew'),
+          title: Text('Cadastre uma nova conta'),
+          actions: <Widget>[
+            Container(
+              margin: const EdgeInsets.only(right: 10.0),
+              child: TextButton.icon(
+                  icon: Icon(Icons.login_outlined ,color: Colors.black),
+                  label: Text('Entrar',
+                    style: TextStyle(
+                      color: Colors.black,
+                    ),
+                  ),
+                  onPressed: (){
+                    widget.toggleView();
+                  }
+              ),
+            ),
+          ],
         ),
         body: Container(
             padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
@@ -43,6 +63,7 @@ class _RegisterState extends State<Register> {
 
                         }
                     ),
+                    SizedBox(height: 20.0),
                     TextFormField(
                       decoration: textInputDecoration.copyWith(hintText: 'E-mail'),
                       validator: (val) => val.isEmpty ? 'Digite seu e-mail' : null,
@@ -63,9 +84,9 @@ class _RegisterState extends State<Register> {
                     ),
                     SizedBox(height: 20.0),
                     RaisedButton(
-                        color: Colors.pink[400],
+                        color: Colors.blueGrey,
                         child: Text(
-                          'Register',
+                          'Cadastrar',
                           style: TextStyle(color: Colors.white),
                         ),
                         onPressed: () async{

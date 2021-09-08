@@ -1,14 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:projeto_web/models/user.dart';
 import 'package:projeto_web/screens/authenticate/authenticate.dart';
-import 'package:projeto_web/screens/authenticate/register.dart';
 import 'package:projeto_web/screens/reports/reports_page.dart';
 import 'package:projeto_web/screens/gps/gps_page.dart';
-import 'package:projeto_web/screens/home/home.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:projeto_web/service/auth.dart';
+
+import 'authenticate/register_page.dart';
 
 class Wrapper extends StatelessWidget {
   @override
@@ -90,7 +90,7 @@ class _MyTabBarState extends State<MyTabBar> with SingleTickerProviderStateMixin
       children: <Widget>[
         ReportsPage(),
         GpsPage(),
-        Home()
+        RegisterPage(),
       ],
     ),
     );

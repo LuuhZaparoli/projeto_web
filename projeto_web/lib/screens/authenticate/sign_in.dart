@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:projeto_web/screens/authenticate/register_page.dart';
 import 'package:projeto_web/service/auth.dart';
 import 'package:projeto_web/shared/constants.dart';
 import 'package:projeto_web/shared/loading.dart';
 
 class SignIn extends StatefulWidget {
+
+  final Function toggleView;
+  SignIn({this.toggleView});
+
   @override
   _SignInState createState() => _SignInState();
 }
@@ -27,11 +32,20 @@ class _SignInState extends State<SignIn> {
         elevation: 0.0,
         title: Text('Acesse sua conta'),
         actions: <Widget>[
-          FlatButton.icon(
-            icon: Icon(Icons.person),
-            label: Text('Register'),
-            onPressed: (){}
-          )
+          Container(
+            margin: const EdgeInsets.only(right: 10.0),
+            child: TextButton.icon(
+                icon: Icon(Icons.person_add ,color: Colors.black),
+                label: Text('Cadastrar',
+                  style: TextStyle(
+                    color: Colors.black,
+                  ),
+                ),
+                onPressed: (){
+                  widget.toggleView();
+                }
+            ),
+          ),
         ],
       ),
       body: Container(
