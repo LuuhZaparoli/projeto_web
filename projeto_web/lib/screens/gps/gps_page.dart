@@ -2,17 +2,20 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:projeto_web/models/userLocationFire.dart';
-import 'package:projeto_web/shared/loading.dart';
 
 class GpsPage extends StatefulWidget {
   @override
-  _GpsPageState createState() => _GpsPageState();
+  _GpsPage createState() => _GpsPage();
 }
 
-class _GpsPageState extends State<GpsPage> {
+class _GpsPage extends State<GpsPage> {
+
   List<UserLocation> item;
   var db = FirebaseFirestore.instance;
+
+  Completer<GoogleMapController> _controller = Completer();
 
   StreamSubscription<QuerySnapshot> locationInscricao;
 
@@ -43,47 +46,28 @@ class _GpsPageState extends State<GpsPage> {
     super.dispose();
   }
 
+  static const LatLng _center = const LatLng(45.521563, -122.677433);
+
+  void _onMapCreated(GoogleMapController controller) {
+    _controller.complete(controller);
+  }
+
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: new AppBar(
-        title: new Text("GPS PAGE"),
-      ),
-      body: new Center(
-        child: StreamBuilder<QuerySnapshot>(
-            stream: getListaLocations(),
-            builder: (context, snapshot) {
-              switch (snapshot.connectionState) {
-                case ConnectionState.none:
-                case ConnectionState.waiting:
-                  return Center(
-                    child: Loading(),
-                  );
-                default:
-                  List<DocumentSnapshot> documentos = snapshot.data.docs;
-                  return ListView.builder(
-                    itemCount: item.length,
-                    itemBuilder: (context, index) {
-                      return ListTile(
-                        title: Text(item[index].nome,
-                            style: TextStyle(
-                              fontSize: 20,
-                              color: Colors.blueGrey,
-                            )),
-                        subtitle: Text(item[index].location.latitude.toString(),
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.black,
-                            )),
-                      );
-                    },
-                  );
-              }
-            }),
-      ),
+    return Scaffold(
+        body: new Center(
+          child: GoogleMap(
+          onMapCreated: _onMapCreated,
+          initialCameraPosition: CameraPosition(
+            target: _center,
+            zoom: 11.0,
+          ),
+        ),
+        )
     );
   }
-  Stream<QuerySnapshot> getListaLocations() {
-    return FirebaseFirestore.instance.collection('location').snapshots();
-  }
+}
+
+Stream<QuerySnapshot> getListaLocations() {
+  return FirebaseFirestore.instance.collection('location').snapshots();
 }
