@@ -87,7 +87,7 @@ class _SignInState extends State<SignIn> {
                         email, password);
                     if (result == null) {
                       setState(() =>
-                      error = 'Could not sign in with this credentials');
+                      error = 'Não foi possível se conectar com essas credenciais');
                       loading = false;
                     }
                   }

@@ -36,7 +36,7 @@ class _MyTabBarState extends State<MyTabBar> with SingleTickerProviderStateMixin
   @override
   void initState(){
     super.initState();
-    controller = new TabController(vsync: this, length: 3);
+    controller = new TabController(vsync: this, length: 2);
   }
 
   @override
@@ -81,7 +81,6 @@ class _MyTabBarState extends State<MyTabBar> with SingleTickerProviderStateMixin
           tabs: <Tab>[
             new Tab(icon: Icon(Icons.library_add_check_outlined)),
             new Tab(icon: Icon(Icons.pin_drop_outlined)),
-            new Tab(icon: Icon(Icons.access_alarms)),
           ]
         )
       ),
@@ -90,7 +89,6 @@ class _MyTabBarState extends State<MyTabBar> with SingleTickerProviderStateMixin
       children: <Widget>[
         ReportsPage(),
         GpsPage(),
-        RegisterPage(),
       ],
     ),
     );
